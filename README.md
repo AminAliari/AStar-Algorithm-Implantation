@@ -1,4 +1,4 @@
-# AStar-Algorithm-Implantation-java-swing-
+# AStar-Algorithm-Implantation-java-swing
 
 this is a AStar Algorithm Implantation which is useful for game developing.
 Developed with swing graphic library and java
