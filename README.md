@@ -1,6 +1,6 @@
 #AStar Algorithm Implantation java swing
 
-![Settings Window](http://uupload.ir/files/ruu0_screenshot.png=240x240)
+![Settings Window](http://uupload.ir/files/ruu0_screenshot.png =240x240)
 
 
 this is a AStar Algorithm Implantation which is useful for game developing.
