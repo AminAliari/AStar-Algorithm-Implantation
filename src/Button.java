@@ -4,25 +4,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Button extends JButton {
-    private boolean selected;
 
-    public Button(String s, int i, int j, final Color color) {
+    private int currentNum;
+
+    public Button(String s, int i, int j) {
         super(s);
+        currentNum = 0;
         Frame.map[i][j] = 0;
-        selected = false;
+        setBorder(null);
         setFocusable(false);
+        setOpaque(true);
+        setBorderPainted(false);
 
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selected) {
-                    Frame.map[i][j] = 0;
-                    setForeground(Color.BLACK);
+                if (currentNum < 7) {
+                    currentNum++;
+                    Frame.map[i][j] = currentNum;
+                    setBackground(Frame.colors[currentNum]);
+                    setText("[" + currentNum + "]");
                 } else {
-                    Frame.map[i][j] = 1;
-                    setForeground(color);
+                    currentNum = 0;
+                    Frame.map[i][j] = 0;
+                    setText("[0]");
+                    setBackground(null);
                 }
-                selected = !selected;
             }
         });
     }

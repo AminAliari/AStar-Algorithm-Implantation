@@ -4,11 +4,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.util.HashMap;
 
 public class Frame extends JFrame {
 
     public static int[][] map;
     public static Button btn[][];
+
+    public static final Color[] colors = {new Color(125, 167, 116), new Color(42, 179, 231), new Color(70, 67, 123), new Color(130, 100, 84), new Color(252, 211, 61), new Color(241, 98, 69), new Color(217, 146, 54), new Color(63, 121, 186)};
 
     private Thread ast;
     private AStar as;
@@ -29,7 +32,7 @@ public class Frame extends JFrame {
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < colm; j++) {
-                btn[i][j] = new Button("[" + i + "," + j + "]", i, j, Color.BLUE);
+                btn[i][j] = new Button("[0]", i, j);
                 add(btn[i][j]);
             }
         }
@@ -54,8 +57,8 @@ public class Frame extends JFrame {
         });
 
         setTitle("A*");
-        setSize(500, 500);
-        setResizable(false);
+        setSize(600, 600);
+//        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultLookAndFeelDecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,8 +75,8 @@ public class Frame extends JFrame {
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < colm; j++) {
-                if (map[i][j] == 0) {
-                    as.grid[i][j] = new Node(i, j);
+                if (map[i][j] < 5) {
+                    as.grid[i][j] = new Node(i, j, map[i][j]);
                     as.grid[i][j].heuristicCost = Math.abs(i - end.x) + Math.abs(j - end.y);
                 } else {
                     as.setBlocked(i, j);

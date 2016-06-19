@@ -62,18 +62,20 @@ public class AStar implements Runnable {
                     System.out.println("Path: ");
                     Node current = grid[ei][ej];
                     System.out.print(current);
-                    Frame.btn[current.i][current.j].setForeground(Color.GREEN);
+                    Frame.btn[current.i][current.j].setBackground(Color.GREEN);
+
                     while (current.parent != null) {
                         System.out.print(" -> " + current.parent);
-                        Frame.btn[current.parent.i][current.parent.j].setForeground(Color.GREEN);
+                        Frame.btn[current.parent.i][current.parent.j].setBackground(Color.GREEN);
                         current = current.parent;
                     }
                     System.out.println();
                 } else {
                     System.out.println("No possible path");
                 }
-                Frame.btn[si][sj].setForeground(Color.RED);
-                Frame.btn[ei][ej].setForeground(Color.RED);
+
+                Frame.btn[si][sj].setBackground(Color.RED);
+                Frame.btn[ei][ej].setBackground(Color.RED);
                 isRunning = false;
                 return;
             }
