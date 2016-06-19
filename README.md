@@ -1,5 +1,8 @@
 #AStar Algorithm Implantation java swing
 
+![Settings Window](https://raw.githubusercontent.com/AminAliari/AStar-Algorithm-Implantation-java-swing/master/preview.tiff)
+
+
 this is a AStar Algorithm Implantation which is useful for game developing.
 Developed with swing graphic library and java
 
