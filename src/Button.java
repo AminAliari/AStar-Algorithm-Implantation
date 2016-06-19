@@ -19,12 +19,17 @@ public class Button extends JButton {
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentNum < 7) {
+                if (currentNum == 0) {
+                    add();
+                }
+                if (currentNum < 3) {
+
                     currentNum++;
                     Frame.map[i][j] = currentNum;
                     setBackground(Frame.colors[currentNum]);
                     setText("[" + currentNum + "]");
                 } else {
+                    remove();
                     currentNum = 0;
                     Frame.map[i][j] = 0;
                     setText("[0]");
@@ -32,5 +37,13 @@ public class Button extends JButton {
                 }
             }
         });
+    }
+
+    private void add() {
+        Frame.colored.add(this);
+    }
+
+    private void remove() {
+        Frame.colored.remove(this);
     }
 }

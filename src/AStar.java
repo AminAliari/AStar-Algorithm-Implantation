@@ -63,10 +63,12 @@ public class AStar implements Runnable {
                     Node current = grid[ei][ej];
                     System.out.print(current);
                     Frame.btn[current.i][current.j].setBackground(Color.GREEN);
+                    Frame.colored.add(Frame.btn[current.i][current.j]);
 
                     while (current.parent != null) {
                         System.out.print(" -> " + current.parent);
                         Frame.btn[current.parent.i][current.parent.j].setBackground(Color.GREEN);
+                        Frame.colored.add(Frame.btn[current.parent.i][current.parent.j]);
                         current = current.parent;
                     }
                     System.out.println();
@@ -75,7 +77,9 @@ public class AStar implements Runnable {
                 }
 
                 Frame.btn[si][sj].setBackground(Color.RED);
+                Frame.colored.add(Frame.btn[si][sj]);
                 Frame.btn[ei][ej].setBackground(Color.RED);
+                Frame.colored.add(Frame.btn[ei][ej]);
                 isRunning = false;
                 return;
             }

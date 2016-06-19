@@ -2,15 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Point2D;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Frame extends JFrame {
 
     public static int[][] map;
     public static Button btn[][];
-
+    public static ArrayList<Button> colored;
     public static final Color[] colors = {new Color(125, 167, 116), new Color(42, 179, 231), new Color(70, 67, 123), new Color(130, 100, 84), new Color(252, 211, 61), new Color(241, 98, 69), new Color(217, 146, 54), new Color(63, 121, 186)};
 
     private Thread ast;
@@ -27,6 +25,7 @@ public class Frame extends JFrame {
 
         btn = new Button[row][colm];
         map = new int[row][colm];
+        colored = new ArrayList<Button>();
 
         setLayout(new GridLayout(row, colm));
 
@@ -66,16 +65,22 @@ public class Frame extends JFrame {
     }
 
     public void solve() {
+        clean();
+
+        if (start.equals(end)) {
+            return;
+        }
+
         Thread ast = new Thread();
         AStar as = new AStar(row, colm, ast);
         ast = new Thread(as);
 
         as.setStartCell(start.x, start.y);
-        as.setEndCell(end.y, end.y);
+        as.setEndCell(end.x, end.y);
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < colm; j++) {
-                if (map[i][j] < 5) {
+                if (map[i][j] < 1) {
                     as.grid[i][j] = new Node(i, j, map[i][j]);
                     as.grid[i][j].heuristicCost = Math.abs(i - end.x) + Math.abs(j - end.y);
                 } else {
@@ -83,7 +88,14 @@ public class Frame extends JFrame {
                 }
             }
         }
+
         as.grid[start.x][start.y].finalCost = 0;
         ast.start();
+    }
+
+    private void clean() {
+        for (Button c : colored) {
+            c.setBackground(null);
+        }
     }
 }

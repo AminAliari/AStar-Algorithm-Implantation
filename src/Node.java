@@ -5,7 +5,7 @@ public class Node {
     int finalCost = 0; // F = G + H
     int i, j;
 
-    Node(int i, int j,int addCost) {
+    Node(int i, int j, int addCost) {
         this.i = i;
         this.j = j;
         heuristicCost += addCost;
