@@ -58,7 +58,7 @@ public class Frame extends JFrame {
 
         setTitle("A*");
         setSize(600, 600);
-//        setResizable(false);
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultLookAndFeelDecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
