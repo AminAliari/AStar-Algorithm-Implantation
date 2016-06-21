@@ -11,8 +11,4 @@ Developed with swing graphic library and java.
 new Frame(10, 10, 1, new Point(0, 0), new Point(9, 9));  // dimension, max allowed cost, start, end
 ```
 
-
-***
-
-
 feel free to use this under Apache License. (indcluding mentioning developer name)
