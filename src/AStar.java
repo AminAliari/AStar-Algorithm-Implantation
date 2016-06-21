@@ -43,14 +43,11 @@ public class AStar implements Runnable {
         }
     }
 
-    private void solve() {
-        open.add(grid[si][sj]);
-        isRunning = true;
-    }
-
     public void run() {
 
-        solve();
+        open.add(grid[si][sj]);
+        isRunning = true;
+
         while (isRunning) {
 
             current = open.poll();
@@ -59,6 +56,7 @@ public class AStar implements Runnable {
 
             if (current.equals(grid[ei][ej])) {
                 if (closed[ei][ej]) {
+
                     System.out.println("Path: ");
                     Node current = grid[ei][ej];
                     System.out.print(current);
@@ -77,9 +75,8 @@ public class AStar implements Runnable {
                 }
 
                 Frame.btn[si][sj].setBackground(Color.RED);
-                Frame.colored.add(Frame.btn[si][sj]);
                 Frame.btn[ei][ej].setBackground(Color.RED);
-                Frame.colored.add(Frame.btn[ei][ej]);
+
                 isRunning = false;
                 return;
             }

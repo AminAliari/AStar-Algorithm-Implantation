@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Frame extends JFrame {
 
@@ -10,22 +11,25 @@ public class Frame extends JFrame {
     public static Button btn[][];
     public static ArrayList<Button> colored;
     public static final Color[] colors = {new Color(125, 167, 116), new Color(42, 179, 231), new Color(70, 67, 123), new Color(130, 100, 84), new Color(252, 211, 61), new Color(241, 98, 69), new Color(217, 146, 54), new Color(63, 121, 186)};
+    public static int max;
+    public static boolean isClean;
 
     private Thread ast;
     private AStar as;
     private Point start, end;
     private int row, colm;
 
-    public Frame(int row, int colm, Point start, Point end) {
+    public Frame(int row, int colm, int max, Point start, Point end) {
 
         this.row = row;
         this.colm = colm;
         this.start = start;
         this.end = end;
+        this.max = max;
 
         btn = new Button[row][colm];
         map = new int[row][colm];
-        colored = new ArrayList<Button>();
+        colored = new ArrayList<>();
 
         setLayout(new GridLayout(row, colm));
 
@@ -65,7 +69,10 @@ public class Frame extends JFrame {
     }
 
     public void solve() {
-        clean();
+        if (isClean) {
+            clean();
+            isClean = false;
+        }
 
         if (start.equals(end)) {
             return;
@@ -80,7 +87,7 @@ public class Frame extends JFrame {
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < colm; j++) {
-                if (map[i][j] < 1) {
+                if (map[i][j] < max) {
                     as.grid[i][j] = new Node(i, j, map[i][j]);
                     as.grid[i][j].heuristicCost = Math.abs(i - end.x) + Math.abs(j - end.y);
                 } else {
@@ -93,9 +100,9 @@ public class Frame extends JFrame {
         ast.start();
     }
 
-    private void clean() {
-        for (Button c : colored) {
-            c.setBackground(null);
+    public void clean() {
+        for (int i = colored.size() - 1; i >= 0; i--) {
+            colored.get(i).reset();
         }
     }
 }
