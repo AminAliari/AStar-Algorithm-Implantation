@@ -1,24 +1,29 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.PriorityQueue;
 
 public class AStar implements Runnable {
 
     public Node[][] grid;
+
+    private ActionListener al;
     private PriorityQueue<Node> open;
     private Node current;
-    private Thread parent;
+
     private boolean isRunning;
+    private String result;
 
     private boolean closed[][];
     private final int vhCost, dCost;
     private int si, sj, ei, ej;
 
-    public AStar(int row, int colm, Thread parent) {
+    public AStar(int row, int colm) {
 
-        this.parent = parent;
         grid = new Node[row][colm];
         closed = new boolean[row][colm];
 
+        result = "";
         vhCost = 10;
         dCost = 14;
 
@@ -57,25 +62,28 @@ public class AStar implements Runnable {
             if (current.equals(grid[ei][ej])) {
                 if (closed[ei][ej]) {
 
-                    System.out.println("Path: ");
                     Node current = grid[ei][ej];
-                    System.out.print(current);
+
                     Frame.btn[current.i][current.j].setBackground(Color.GREEN);
                     Frame.colored.add(Frame.btn[current.i][current.j]);
 
                     while (current.parent != null) {
-                        System.out.print(" -> " + current.parent);
+
+                        result += current.parent.direction(current,true);
+
                         Frame.btn[current.parent.i][current.parent.j].setBackground(Color.GREEN);
                         Frame.colored.add(Frame.btn[current.parent.i][current.parent.j]);
+
                         current = current.parent;
                     }
-                    System.out.println();
-                } else {
-                    System.out.println("No possible path");
+                    result = new StringBuilder(result).reverse().toString();
+
                 }
 
                 Frame.btn[si][sj].setBackground(Color.RED);
                 Frame.btn[ei][ej].setBackground(Color.RED);
+
+                if (al != null) al.actionPerformed(new ActionEvent(this, AWTEvent.RESERVED_ID_MAX + 1, ""));
 
                 isRunning = false;
                 return;
@@ -109,6 +117,7 @@ public class AStar implements Runnable {
             }
 
             if (current.i + 1 < grid.length) {
+
                 t = grid[current.i + 1][current.j];
                 checkAndUpdateCost(current, t, current.finalCost + vhCost);
 
@@ -125,6 +134,10 @@ public class AStar implements Runnable {
         }
     }
 
+    public void addActionListener(ActionListener al) {
+        this.al = al;
+    }
+
     public void setBlocked(int i, int j) {
         grid[i][j] = null;
     }
@@ -137,6 +150,10 @@ public class AStar implements Runnable {
     public void setEndCell(int i, int j) {
         ei = i;
         ej = j;
+    }
+
+    public String getResult() {
+        return result;
     }
 
     public void stop() {

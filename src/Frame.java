@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -14,8 +16,6 @@ public class Frame extends JFrame {
     public static int max;
     public static boolean isClean;
 
-    private Thread ast;
-    private AStar as;
     private Point start, end;
     private int row, colm;
 
@@ -69,6 +69,7 @@ public class Frame extends JFrame {
     }
 
     public void solve() {
+
         if (isClean) {
             clean();
             isClean = false;
@@ -78,9 +79,17 @@ public class Frame extends JFrame {
             return;
         }
 
-        Thread ast = new Thread();
-        AStar as = new AStar(row, colm, ast);
-        ast = new Thread(as);
+        AStar as = new AStar(row, colm);
+        Thread ast = new Thread(as);
+
+        as.addActionListener(e -> {
+
+            if (!as.getResult().isEmpty()) {
+                System.out.println(as.getResult());
+            } else {
+                System.out.println("No possible path");
+            }
+        });
 
         as.setStartCell(start.x, start.y);
         as.setEndCell(end.x, end.y);
