@@ -3,7 +3,7 @@
 ![Settings Window](http://uupload.ir/files/ljnm_screenshot.png)
 
 
-this is a AStar Algorithm Implantation which is useful for game developing,Artificial Intelgence and algorithm courses.
+this is a AStar Algorithm Implantation which is useful for game developing, Artificial Intelligence and algorithm courses.
 Developed with swing graphic library and java.
 
 • <b>how to use:</b>
