@@ -12,4 +12,4 @@ Developed with swing graphic library and java.
 ```
 
 
-  > feel free to use this under Apache License. (indcluding mentioning developer name)
+> feel free to use this under Apache License. (indcluding mentioning developer name)
